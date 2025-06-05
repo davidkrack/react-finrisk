@@ -1,0 +1,132 @@
+/* Estilos adaptados de tu cotizador.css original */
+
+.container {
+    position: relative;
+    width: 60%;
+    min-width: 1000px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding-bottom: 60px;
+  }
+  
+  .steps {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ccc;
+  }
+  
+  .step {
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    flex-grow: 1;
+    text-align: center;
+  }
+  
+  .step.active {
+    background-color: #0066cc;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .radioGroup {
+    margin-bottom: 20px;
+  }
+  
+  .radioGroup label {
+    font-size: 14px;
+    font-weight: normal;
+    display: inline;
+    margin-left: 5px;
+  }
+  
+  .aboutSection {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+    margin-top: 20px;
+    min-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .investmentContainer {
+    display: flex;
+    align-items: center;
+    gap: 650px;
+    margin: 10px 0;
+    width: 97%;
+  }
+  
+  .calculateBtn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .calculateBtn:hover {
+    background-color: #45a049;
+  }
+  
+  .loadingSpinner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #007bff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .tabsHeader {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+  }
+  
+  .tabButton {
+    padding: 10px 20px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;
+  }
+  
+  .tabButton.active {
+    border-bottom-color: #007bff;
+    color: #007bff;
+  }
+  
+  .tabButton:hover {
+    background-color: #f8f9fa;
+  }
