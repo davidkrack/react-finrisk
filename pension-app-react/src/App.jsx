@@ -7,11 +7,10 @@ import DownloadCenter from '../components/Download/DownloadCenter'
 import './../src/index.css'
 
 function App() {
-  const [currentView, setCurrentView] = useState('login') // login, dashboard, calculator, agents, download
+  const [currentView, setCurrentView] = useState('login')
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
 
-  // Verificar autenticación al cargar
   useEffect(() => {
     checkAuthentication()
   }, [])
@@ -20,8 +19,10 @@ function App() {
     try {
       console.log('Verificando autenticación...')
       
-      // Verificar si hay una sesión activa
-      const response = await fetch('/auth/check-session')
+      const response = await fetch('/auth/check-session', {
+        method: 'GET',
+        credentials: 'include'
+      })
       
       if (!response.ok) {
         console.log('Error en check-session:', response.status)
@@ -61,12 +62,12 @@ function App() {
         headers: {
           'Content-Type': 'application/json'
         },
+        credentials: 'include',
         body: JSON.stringify(credentials)
       })
 
       console.log('Respuesta del servidor:', response.status, response.statusText)
 
-      // Verificar si la respuesta es exitosa
       if (!response.ok) {
         let errorMessage = 'Error de conexión'
         
@@ -81,7 +82,6 @@ function App() {
         return { success: false, message: errorMessage }
       }
 
-      // Intentar parsear la respuesta JSON
       let data
       try {
         data = await response.json()
@@ -110,21 +110,21 @@ function App() {
     try {
       console.log('Cerrando sesión...')
       
-      const response = await fetch('/auth/logout')
+      const response = await fetch('/auth/logout', {
+        credentials: 'include'
+      })
       
       if (response.ok) {
         const data = await response.json()
         console.log('Logout response:', data)
       }
       
-      // Independientemente de la respuesta, limpiar el estado local
       setUser(null)
       setCurrentView('login')
-      console.log('Sesión cerrada localmente')
+      console.log('Sesión cerrada')
       
     } catch (error) {
       console.error('Error en logout:', error)
-      // Aún así, cerrar sesión localmente
       setUser(null)
       setCurrentView('login')
     }
@@ -135,7 +135,6 @@ function App() {
     setCurrentView(view)
   }
 
-  // Componente de Header reutilizable
   const AppHeader = ({ title, showBackButton = true }) => (
     <div style={{ 
       background: '#0033a1', 
@@ -161,8 +160,6 @@ function App() {
               marginRight: '10px',
               transition: 'background-color 0.3s'
             }}
-            onMouseOver={(e) => e.target.style.backgroundColor = 'rgba(255,255,255,0.1)'}
-            onMouseOut={(e) => e.target.style.backgroundColor = 'transparent'}
           >
             ← Volver al Dashboard
           </button>
@@ -178,8 +175,6 @@ function App() {
             cursor: 'pointer',
             transition: 'background-color 0.3s'
           }}
-          onMouseOver={(e) => e.target.style.backgroundColor = '#c82333'}
-          onMouseOut={(e) => e.target.style.backgroundColor = '#dc3545'}
         >
           Cerrar Sesión
         </button>
@@ -189,7 +184,7 @@ function App() {
 
   if (loading) {
     return (
-      <div className="loading-spinner" style={{
+      <div style={{
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
@@ -197,7 +192,7 @@ function App() {
         height: '100vh',
         backgroundColor: '#f8f9fa'
       }}>
-        <div className="spinner" style={{
+        <div style={{
           width: '50px',
           height: '50px',
           border: '5px solid #f3f3f3',
@@ -216,7 +211,6 @@ function App() {
     )
   }
 
-  // Renderizar vistas según el estado actual
   switch (currentView) {
     case 'login':
       return <LoginForm onLogin={handleLogin} />
