@@ -22,7 +22,7 @@ const MainDashboard = ({ user, onLogout, onNavigate }) => {
     {
       id: 'calculator',
       title: 'Cotizador de Pensiones',
-      description: 'Calcule rentas vitalicias y pensiones con nuestro sistema avanzado',
+      description: 'Calcule rentas vitalicias y pensiones con nuestro sistema avanzado de cálculo actuarial',
       icon: '🧮',
       color: '#28a745',
       action: () => onNavigate('calculator'),
@@ -31,7 +31,7 @@ const MainDashboard = ({ user, onLogout, onNavigate }) => {
     {
       id: 'download',
       title: 'Descargar Software Desktop',
-      description: 'Descargue la última versión del software para escritorio',
+      description: 'Descargue la última versión del software para escritorio con todas las funcionalidades avanzadas',
       icon: '⬇️',
       color: '#007bff',
       action: () => onNavigate('download'),
@@ -41,7 +41,7 @@ const MainDashboard = ({ user, onLogout, onNavigate }) => {
     {
       id: 'agents',
       title: 'Panel de Agentes',
-      description: 'Gestione clientes y visualice estadísticas de ventas',
+      description: 'Gestione clientes y visualice estadísticas detalladas de ventas y conversiones',
       icon: '👥',
       color: '#6f42c1',
       action: () => onNavigate('agents')
@@ -49,7 +49,7 @@ const MainDashboard = ({ user, onLogout, onNavigate }) => {
     {
       id: 'reports',
       title: 'Reportes y Análisis',
-      description: 'Genere reportes detallados y análisis de mercado',
+      description: 'Genere reportes detallados y análisis completos de mercado para toma de decisiones',
       icon: '📊',
       color: '#fd7e14',
       action: () => alert('Funcionalidad próximamente disponible')
@@ -57,7 +57,7 @@ const MainDashboard = ({ user, onLogout, onNavigate }) => {
     {
       id: 'settings',
       title: 'Configuración',
-      description: 'Ajuste parámetros del sistema y preferencias',
+      description: 'Ajuste parámetros del sistema, preferencias de usuario y configuraciones avanzadas',
       icon: '⚙️',
       color: '#6c757d',
       action: () => alert('Funcionalidad próximamente disponible')
@@ -65,7 +65,7 @@ const MainDashboard = ({ user, onLogout, onNavigate }) => {
     {
       id: 'support',
       title: 'Soporte Técnico',
-      description: 'Acceda a documentación y soporte especializado',
+      description: 'Acceda a documentación completa, tutoriales y soporte técnico especializado',
       icon: '🛠️',
       color: '#20c997',
       action: () => alert('Contacte soporte: soporte@finrisk.com')
@@ -87,7 +87,10 @@ const MainDashboard = ({ user, onLogout, onNavigate }) => {
         border: option.featured ? `2px solid ${option.color}` : '1px solid #e9ecef',
         position: 'relative',
         overflow: 'hidden',
-        height: option.featured ? '220px' : '180px'
+        minHeight: option.featured ? '240px' : '200px', // Cambio: minHeight en lugar de height fija
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between' // Distribuir contenido uniformemente
       }}
       onMouseOver={(e) => {
         e.currentTarget.style.transform = 'translateY(-8px)'
@@ -115,39 +118,47 @@ const MainDashboard = ({ user, onLogout, onNavigate }) => {
           fontSize: '0.7em',
           fontWeight: 'bold',
           textTransform: 'uppercase',
-          letterSpacing: '0.5px'
+          letterSpacing: '0.5px',
+          zIndex: 2
         }}>
           {option.badge}
         </div>
       )}
 
-      <div style={{ 
-        fontSize: option.featured ? '4em' : '3em', 
-        marginBottom: '20px',
-        textAlign: 'center'
-      }}>
-        {option.icon}
+      {/* Contenido superior */}
+      <div style={{ flex: '1', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <div style={{ 
+          fontSize: option.featured ? '4em' : '3em', 
+          marginBottom: '20px',
+          textAlign: 'center'
+        }}>
+          {option.icon}
+        </div>
+        
+        <h3 style={{ 
+          margin: '0 0 15px 0', 
+          color: option.color,
+          fontSize: option.featured ? '1.4em' : '1.2em',
+          fontWeight: 'bold',
+          textAlign: 'center',
+          lineHeight: '1.3'
+        }}>
+          {option.title}
+        </h3>
+        
+        <p style={{ 
+          margin: 0, 
+          color: '#666', 
+          lineHeight: '1.5',
+          textAlign: 'center',
+          fontSize: option.featured ? '1em' : '0.9em',
+          flex: '1', // Permitir que la descripción use el espacio disponible
+          display: 'flex',
+          alignItems: 'center' // Centrar verticalmente el texto
+        }}>
+          {option.description}
+        </p>
       </div>
-      
-      <h3 style={{ 
-        margin: '0 0 15px 0', 
-        color: option.color,
-        fontSize: option.featured ? '1.4em' : '1.2em',
-        fontWeight: 'bold',
-        textAlign: 'center'
-      }}>
-        {option.title}
-      </h3>
-      
-      <p style={{ 
-        margin: 0, 
-        color: '#666', 
-        lineHeight: '1.5',
-        textAlign: 'center',
-        fontSize: option.featured ? '1em' : '0.9em'
-      }}>
-        {option.description}
-      </p>
 
       {/* Indicador visual para elementos destacados */}
       {option.featured && (
@@ -301,7 +312,8 @@ const MainDashboard = ({ user, onLogout, onNavigate }) => {
           <div style={{ 
             display: 'grid', 
             gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', 
-            gap: '30px'
+            gap: '30px',
+            alignItems: 'stretch' // Hacer que todas las tarjetas tengan la misma altura base
           }}>
             {dashboardOptions.map(option => (
               <DashboardCard key={option.id} option={option} />

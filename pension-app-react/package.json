@@ -7,6 +7,10 @@
     "client": "vite",
     "server": "node src/app.js",
     "build": "vite build",
+    "build:prod": "set NODE_ENV=production && vite build",
+    "start:prod": "set NODE_ENV=production && node src/server.js",
+    "deploy:windows": "call deploy.bat",
+    "service:install": "call start-service.bat",
     "lint": "eslint .",
     "preview": "vite preview"
   },

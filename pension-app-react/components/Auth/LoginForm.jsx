@@ -63,7 +63,8 @@ const LoginForm = ({ onLogin }) => {
       alignItems: 'center',
       justifyContent: 'center',
       padding: '20px',
-      fontFamily: 'Arial, sans-serif'
+      fontFamily: 'Arial, sans-serif',
+      position: 'relative'
     }}>
       {/* Fondo con patrón */}
       <div style={{
@@ -73,13 +74,15 @@ const LoginForm = ({ onLogin }) => {
         right: 0,
         bottom: 0,
         backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-        opacity: 0.3
+        opacity: 0.3,
+        zIndex: 0
       }} />
 
       <div style={{
         display: 'flex',
         gap: '30px',
         alignItems: 'center',
+        justifyContent: 'center',
         position: 'relative',
         zIndex: 1,
         maxWidth: '1000px',
@@ -91,7 +94,8 @@ const LoginForm = ({ onLogin }) => {
           borderRadius: '20px',
           padding: '50px',
           width: '450px',
-          boxShadow: '0 20px 60px rgba(0,0,0,0.3)'
+          boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
+          margin: '0 auto' // Centrado adicional
         }}>
           {/* Logo */}
           <div style={{ 
@@ -326,7 +330,12 @@ const LoginForm = ({ onLogin }) => {
             padding: '30px',
             width: '400px',
             boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
-            backdropFilter: 'blur(10px)'
+            backdropFilter: 'blur(10px)',
+            position: 'absolute',
+            right: showCredentials ? '20px' : '-400px',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            transition: 'right 0.3s ease-in-out'
           }}>
             <h3 style={{
               margin: '0 0 20px 0',
